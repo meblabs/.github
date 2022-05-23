@@ -15,6 +15,25 @@ Mac:
 brew install gnupg
 ```
 
+##### Optional configuration:
+For a better user experience install the "zsh" shell and the "oh-my-zsh" package using the "powerlevel10k" custom theme.
+
+Zsh:
+ ```sh
+brew install zsh
+ ```
+
+oh-my-zsh:
+```sh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+powerlevel10k:<br/>
+https://github.com/romkatv/powerlevel10k
+<br/>
+<br/>
+
+
 #### Configuration
 
 Creation: 
