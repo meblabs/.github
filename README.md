@@ -15,25 +15,6 @@ Mac:
 brew install gnupg
 ```
 
-##### Optional configuration:
-For a better user experience install the "zsh" shell and the "oh-my-zsh" package using the "powerlevel10k" custom theme.
-
-Zsh:
- ```sh
-brew install zsh
- ```
-
-oh-my-zsh:
-```sh
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
-powerlevel10k:<br/>
-https://github.com/romkatv/powerlevel10k
-<br/>
-<br/>
-
-
 #### Configuration
 
 Creation: 
@@ -132,3 +113,23 @@ If the code of the repository is shared (ex: fork), rebase is not a good choice.
 
 ## Commits
 To create consistent and convenvtional commits we follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+
+## Zsh + Powerlevel10k (MacOS)
+
+For a better user experience install the "zsh" shell and the "oh-my-zsh" package using the "powerlevel10k" custom theme.
+
+Zsh:
+ ```sh
+brew install zsh
+ ```
+
+[oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh#uninstalling-oh-my-zsh):
+```sh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+[powerlevel10k](https://github.com/romkatv/powerlevel10k):
+```sh
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+Set `ZSH_THEME="powerlevel10k/powerlevel10k"` in `~/.zshrc`.
