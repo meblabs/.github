@@ -92,6 +92,13 @@ Import from another computer
 gpg --import private.key
 ```
 
+## Git Username
+
+Set your username on gitconfig, it will need for AWS dev resources.
+
+```sh
+git config --global user.name "nickname"
+```
 
 ## Rebase Pull
 
