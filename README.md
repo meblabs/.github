@@ -29,15 +29,15 @@ gpg --gen-key
 List:
 
 ```sh
-gpg --list-secret-keys --keyid-format=long
+gpg --list-keys 
 #[keyboxd]
 #---------
-#sec   ed25519/171280C1A910RADA 2024-09-16 [SC] [expires: 2027-09-16]
+#sec   ed25869 2024-09-16 [SC] [expires: 2027-09-16]
 #      66ADE85TH0D58A9894C51F947171280C1A910TOFU
 #uid                 [ultimate] user <user email>
 #ssb   cv25869/32A287714RT8JK3F0 2024-09-16 [E] [expires: 2027-09-16]
 
-#THE KEY_ID is 171280C1A910RADA
+#THE KEY_ID is 66ADE85TH0D58A9894C51F947171280C1A910TOFU
 ```
 
 Distribution:
