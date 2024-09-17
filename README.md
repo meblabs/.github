@@ -4,60 +4,82 @@
 
 Use git via SSH -> [Doc](https://docs.github.com/en/authentication/connecting-to-github-with-ssh)
 
-## Signing commits
+## Signed commits
 
 #### Requirements
 
 - gnupg
 
-Mac: 
+Mac:
+
 ```sh
 brew install gnupg
 ```
 
 #### Configuration
 
-Creation: 
+Creation:
 
-Make sure the email of the key is the same on GitHub and the same in git config.
+Make sure the email associated with the key is the same on GitHub and in your git config.
+
 ```sh
 gpg --gen-key
 ```
 
 List:
+
 ```sh
-gpg --list-keys
+gpg --list-secret-keys --keyid-format=long
+#[keyboxd]
+#---------
+#sec   ed25519/171280C1A910RADA 2024-09-16 [SC] [expires: 2027-09-16]
+#      66ADE85TH0D58A9894C51F947171280C1A910TOFU
+#uid                 [ultimate] user <user email>
+#ssb   cv25869/32A287714RT8JK3F0 2024-09-16 [E] [expires: 2027-09-16]
+
+#THE KEY_ID is 171280C1A910RADA
 ```
 
 Distribution:
+
 ```sh
 gpg --keyserver keyserver.ubuntu.com --send-keys <YOUR_KEY_ID>
 ```
 
-Retrive: (it can take minutes from distrubution)
+Retrive: (it can take minutes from distribution)
+
 ```sh
 gpg --keyserver keyserver.ubuntu.com --recv-keys <YOUR_KEY_ID>
 ```
 
-Once you have a private key to sign with, you can configure Git [[Doc](https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key)]
+Once you have a signing key, you can configure Git [[Doc](https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key)]
+
 ```sh
 git config --global user.signingkey <YOUR_KEY_ID>
 git config --global commit.gpgsign true
 ```
 
-If you aren't using the GPG suite, run the following command in the zsh shell to add the GPG key to your .zshrc file, if it exists, or your .zprofile file:
+If you're not using the GPG suite, run the following command in your zsh shell to add the GPG key to your .zshrc file (if it exists), or to your .zprofile file:
 
 ```sh
-if [ -r ~/.zshrc ]; then echo 'export GPG_TTY=$(tty)' >> ~/.zshrc; \
-else echo 'export GPG_TTY=$(tty)' >> ~/.zprofile; fi
-```
-Alternatively, if you use the bash shell, run this command:
-```sh
-if [ -r ~/.bash_profile ]; then echo 'export GPG_TTY=$(tty)' >> ~/.bash_profile; \
-else echo 'export GPG_TTY=$(tty)' >> ~/.profile; fi
+if [ -r ~/.zshrc ]; then
+    echo -e '\nexport GPG_TTY=$(tty)' >> ~/.zshrc;
+else
+    echo -e '\nexport GPG_TTY=$(tty)' >> ~/.zprofile;
+fi
 ```
 
-Optionally, to prompt you to enter a PIN or passphrase when required
+Alternatively, for bash users, run this command:
+
+```sh
+if [ -r ~/.bash_profile ]; then
+    echo -e '\nexport GPG_TTY=$(tty)' >> ~/.bash_profile;
+else
+    echo -e '\nexport GPG_TTY=$(tty)' >> ~/.profile;
+fi
+```
+
+Optionally, to prompt you to enter a PIN or passphrase when required:
 
 ```sh
 brew install pinentry-mac
@@ -72,6 +94,7 @@ Add the gpg public key to GitHub account [[Doc](https://docs.github.com/en/enter
 ```sh
 gpg --armor --export <YOUR_KEY_ID>
 ```
+
 #### VScode
 
 ```json
@@ -94,7 +117,7 @@ gpg --import private.key
 
 ## Git Username
 
-Set your username on gitconfig, it will need for AWS dev resources.
+Set your username on gitconfig, it will be required for AWS development resources.
 
 ```sh
 git config --global user.name "nickname"
@@ -108,35 +131,42 @@ Standard pull method
 git config --global pull.rebase true
 ```
 
-I want to record what actually happened: then `merge` 
-- History is preserved
-- Messy commits are there
+Choose `merge` when you want to record exactly what happened:
 
-I want to tell the story of how your project was made: then `rebase`
-- History is modified 
-- Commits are cleaner
+- Preserves full history
+- Includes all messy commits
 
-If the code of the repository is shared (ex: fork), rebase is not a good choice.
+Choose `rebase` when you want to tell a cleaner story of how your project was built
+
+- Modifies history
+- Results in cleaner commits
+
+Note: If the repository code is shared (e.g., in a fork), rebase is generally not recommended.
 
 ## Commits
-To create consistent and convenvtional commits we follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
-## Zsh + Powerlevel10k (MacOS)
+To create consistent and conventional commits we follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
-For a better user experience install the "zsh" shell and the "oh-my-zsh" package using the "powerlevel10k" custom theme.
+## Optional: Zsh + Powerlevel10k (MacOS)
+
+For an enhanced user experience, install the zsh shell along with the oh-my-zsh framework, and apply the powerlevel10k custom theme.
 
 Zsh:
- ```sh
+
+```sh
 brew install zsh
- ```
+```
 
 [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh#uninstalling-oh-my-zsh):
+
 ```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
 [powerlevel10k](https://github.com/romkatv/powerlevel10k):
+
 ```sh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
+
 Set `ZSH_THEME="powerlevel10k/powerlevel10k"` in `~/.zshrc`.
